@@ -1,0 +1,98 @@
+
+body{
+  background-image: url("../img/Vintage world map based on image furnished by NASA_ Mixed media.jpeg");
+
+  background-position: center;
+  background-size: contain;
+  background-repeat: none;
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+
+}
+header{
+  box-shadow: 5px 6px 15px #000000d0;
+  position: fixed;
+  width: 100%;
+  top: 0%;
+  z-index: 9;
+}
+nav{
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+body > header > nav > div >a img{
+  width: 50px;
+  height: auto;
+  margin-left: .5rem;
+  margin-right: 0px;
+  margin-top: -1rem;
+}
+body > header > nav > div > a{
+  color: wheat;
+}
+#navbarSupportedContent > ul > li > a{
+  color: wheat;
+}
+
+#portfolio{
+ background-color: transparent;
+ backdrop-filter: blur(3px);
+  
+}
+#home > div > div.col-12.d-flex.flex-column.text-center.justify-content-center > h2,#developers > div > div.col-12.d-flex.flex-column.text-center.justify-content-center > h2,#portfolio > div > div > h1,#portfolio > div > div.col-12.d-flex.flex-column.text-center.justify-content-center > h2{
+  color: wheat;
+}
+
+#compass, .arrow {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex: wrap;
+
+  }
+
+  #compass {
+    background-color: lightgray;
+    border-radius: 50%;
+    
+  
+  }
+  #compass img{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+  
+  }
+
+  .arrow {
+ 
+    /* top: 0%; */
+    /* left: 50%; */
+    font-size: 24px; /* Adjust size of the arrow */
+    /* transform-origin: center bottom;
+    position: absolute; */
+  }
+
+  .north { color: red; }
+  .east { color: green; display: none; }
+  .south { color: blue; display: none; }
+  .west { color: orange; display: none; }
+
+  #timeZone{
+    max-width: 32vw;
+    word-wrap: normal;
+    /* border: red solid 1px; */
+  }
+
+  /* Media query for screens smaller than or equal to 768px (commonly associated with mobile devices) */
+@media (max-width: 768px) {
+  #map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > button{
+    /* border: solid red 1px; */
+    /* z-index: 111;
+   position: absolute;
+    right: -10%; */
+    position: absolute;
+    left: -1095%;
+   
+  }
+}

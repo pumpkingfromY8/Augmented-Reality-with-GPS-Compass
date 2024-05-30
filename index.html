@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group 5: GPS and Compass</title>
+
+
+  <!-- Linking CSS File -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="shortcut icon" href="img/IMG_20240427_174545-removebg-preview.png" type="image/x-icon">
+
+  <!-- Fontawesome link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <!-- Bootstrap link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Leaflet Control Geocoder CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <!-- Leaflet Control Geocoder JavaScript -->
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <script src="https://unpkg.com/leaflet-compass/dist/leaflet-compass.min.js"></script>
+
+  <style>
+    #map {
+      height: 400px;
+      width: 800px;
+      z-index: 1;
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header & Navbar fixed-top-->
+  <header class="bg-transparent ">
+    <nav class="container-xxl navbar navbar-expand-lg py-3 bg-transparent navbar-transparent">
+      <div class="container-fluid">
+
+        <a class="navbar-brand fw-bold fs-3" style="color: wheat;" href="#"> <img class="logo"
+            src="img/IMG_20240427_174545-removebg-preview.png" alt="">Augmented Reality with GPS & Compass</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="game.html">AR Game</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="#developers">Developers</a>
+            </li>
+
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero or Showcase Section -->
+  <section class="container  py-1" id="home" style="margin-top: 5rem;">
+    <div class="row mt-4 py-3">
+      <div class="col-12 d-flex flex-column text-center justify-content-center">
+        <h2>Augmented Reality with GPS & Compass</h2>
+        <h5 class="text-secondary fw-normal py-2 fst-italic">Maps for Locating exact address of your device or find
+          someasdhasdhadhs</h5>
+      </div>
+      <div class="row mt-0 ml-0 mx-0 justify-content-center align-items-center">
+
+
+        <div class="col-lg-3 col-md-4 w-auto col-12 card-wrapper">
+          <div class="card  mt-4" id="mapcards" style="overflow: auto;">
+
+            <div id="map"></div>
+
+            <div class="d-flex" style="padding: 1rem; flex: wrap; overflow: auto;">
+
+              <div class="mb-3 p-1">
+                <label for="">Current Location: </label>
+                <p class="mb-4 " id="currentLocation"> </p>
+              </div>
+              <div class="mb-3 p-1" style="margin-left: 1rem;">
+                <label for="">Address Name: </label>
+
+                <p class="mb-4" id="timeZone"></p> <!-- Display time zone ID -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4  w-5 col-12 card-wrapper"
+          style=" position: absolute; z-index: 4; width: auto; top: 88%; right: 30.5%; background-color: transparent;">
+          <div class="card mt-4 bg-transparent" id="cards" style="border: none;">
+            <div id="compass"><img src="img/compass.png" alt="">
+
+              <div class="arrow north"><img src="img/hand.png" alt="↓"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4  col-12 card-wrapper " style="height: 100%;">
+          <div class="card mt-4" id="cards">
+            <div class="card-body">
+              <h2 class="mb-4" style="text-align: center;">Coordinates</h2>
+
+              <div class="mb-3 p-1">
+                <label class="form-label">Latitude:</label>
+                <input class="form-control" type="text" id="latbox" placeholder="Enter latitude">
+
+              </div>
+              <div class="mb-3 p-1">
+                <label class="form-label">Longitude:</label>
+                <input class="form-control" type="text" id="longbox" placeholder="Enter longitude">
+              </div>
+              <div class="mb-3 p-1">
+                <button onclick="locateOnMap()" style="width: 100%;"
+                  class="btn btn-lg fs-6 fw-medium  btn-primary ">Locate</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+  </section>
+
+  <!-- about -->
+  <section class="container  py-1" id="about">
+    <div style="height: 100vh; width: 100vw;">
+      <div class="col-12 d-flex flex-column text-center justify-content-center">
+        <h1 style="color: wheat;">DOCUMENTAION DRIA DAPIT </h1>
+        <h5 class="text-secondary fw-normal py-2 fst-italic">Maps for Locating exact address of your device or find
+          someasdhasdhadhs</h5>
+      </div>
+
+    </div>
+
+  </section>
+  <section class="container  py-1" id="developers">
+
+    <div class="row mt-4 py-3">
+      <div class="col-12 d-flex flex-column text-center justify-content-center">
+        <h2>Devolopers</h2>
+        <h5 class="text-secondary fw-normal py-2 fst-italic">A team of deleoperasadadaadhakdhjaskdh assadasdas</h5>
+      </div>
+      <div class="row mt-5 mx-0 justify-content-center align-items-center">
+        <div class="col-lg-3 col-md-4 col-12 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img id="img" onclick="viewIMGS()"
+              src="members/projects/440392982_1098418241411715_4536190023914703014_n.jpg" class="img-fluid"
+              alt="propile picture">
+            <div class="card-body text-center">
+              <h6 class="card-title">Jaymark Junsay</h6>
+              <p class="card-text text-secondary">Team Leader </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/412057058_1566120514213781_4305793258337300326_n.jpg" class="img-fluid"
+              alt="propile picture">
+            <div class="card-body text-center">
+              <h6 class="card-title">Erwin Kim A. Carmelotes</h6>
+              <p class="card-text text-secondary">Back End Developer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/434948294_2155783121438256_905456403908535783_n.jpg" alt="Picture ni Cate"
+              class="img-fluid" alt="propile picture">
+
+            <div class="card-body text-center">
+              <h6 class="card-title">Wendell Cate</h6>
+              <p class="card-text text-secondary">Front End Developer </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/362898175_2072763173085780_1110026823917789456_n.jpg" class="img-fluid"
+              alt="propile picture">
+
+            <div class="card-body text-center">
+              <h6 class="card-title">Jimrey Libay</h6>
+              <p class="card-text text-secondary">UI Disigner </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/429582760_826251886193933_7981102220606755969_n.jpg" class="img-fluid"
+              alt="propile picture">
+
+            <div class="card-body text-center">
+              <h6 class="card-title">Aries Havana</h6>
+              <p class="card-text text-secondary">QA Tester</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/437887563_1780216849152231_1790814098298715768_n.jpg" class="img-fluid"
+              alt="propile picture">
+
+            <div class="card-body text-center">
+              <h6 class="card-title">Triena Padilla Ula</h6>
+              <p class="card-text text-secondary">Content Writer</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/437887563_1780216849152231_1790814098298715768_n.jpg" class="img-fluid"
+              alt="propile picture">
+
+            <div class="card-body text-center">
+              <h6 class="card-title">Quincy Magadan Tawide</h6>
+              <p class="card-text text-secondary">Project Presentor</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 card-wrapper">
+          <div class="card mt-4" id="cards">
+            <img src="members/projects/437887563_1780216849152231_1790814098298715768_n.jpg" class="img-fluid"
+              alt="propile picture">
+
+            <div class="card-body text-center">
+              <h6 class="card-title">Precilyn Gregorion</h6>
+              <p class="card-text text-secondary">asdasdafasfaf</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="mt-5 col-12 d-flex flex-column text-center justify-content-center">
+          <h1 style="color: wheat;">GPS and Compass Mobile App </h1>
+          <h5 class="text-secondary fw-normal py-2 fst-italic">For better performance of location accuracy and compass
+            direction performance </h5>
+          <a href="#skills" class="btn btn-lg fs-6 fw-medium mt-5 btn-primary p-3">Download GPS and Compass Mobile App
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download"
+              viewBox="0 0 16 16">
+              <path
+                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+              <path
+                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+            </svg> </a>
+
+        </div> -->
+      </div>
+  </section>
+
+  </div>
+
+  <div class="arrow east">→</div>
+  <div class="arrow south">↓</div>
+  <div class="arrow west">←</div>
+
+
+  <!-- Footer -->
+  <footer style="color: wheat;">
+    <div class="container-xxl flex-wrap pt-3 d-flex align-items-center justify-content-between">
+      <p>Copyright © 2024 PUMPKINGfromY8</p>
+      <ul class="social-icons d-flex">
+        <a href="https://youtube.com/@pumpkingfromy8470?si=GP-lH7d4GwU-N8Ih"
+          class="bg-transparent mx-2 text-white d-flex align-items-center justify-content-center text-decoration-none rounded-circle"><small><i
+              class="fa-brands fa-youtube"></i></small></a>
+        <a href="https://www.facebook.com/Duldulao12?mibextid=ZbWKwL"
+          class="bg-transparent mx-2 text-white d-flex align-items-center justify-content-center text-decoration-none rounded-circle"><small><i
+              class="fa-brands fa-facebook-f"></i></small></a>
+        <a href="mailto:erwinkimacarmelotes@asscat.edu.ph"
+          class="bg-transparent mx-2 text-white d-flex align-items-center justify-content-center text-decoration-none rounded-circle"><small><i
+              class="fa-brands fa-envelope"></i></small></a>
+      </ul>
+
+    </div>
+  </footer>
+
+<audio src="sfx/Kathang Isip  by_ Ben & Ben (Lyrics).mp3" autoplay ></audio>
+
+  <!-- Bootstrap script link -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/compass.js">  </script>
+  <script src="js/gps.js"></script>
+</body>
+
+</html>
