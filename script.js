@@ -2,10 +2,10 @@ const video = document.getElementById('video');
 const myModelViewer = document.getElementById('myModelViewer');
 
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models')
+  faceapi.nets.tinyFaceDetector.loadFromUri('https://github.com/WebDevSimplified/Face-Detection-JavaScript/tree/master/models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('https://github.com/WebDevSimplified/Face-Detection-JavaScript/tree/master/models'),
+  faceapi.nets.faceRecognitionNet.loadFromUri('https://github.com/WebDevSimplified/Face-Detection-JavaScript/tree/master/models'),
+  faceapi.nets.faceExpressionNet.loadFromUri('https://github.com/WebDevSimplified/Face-Detection-JavaScript/tree/master/models')
 ]).then(startVideo);
 
 function startVideo() {
@@ -54,11 +54,11 @@ video.addEventListener('play', () => {
       myModelViewer.style.width = `${box.width}px`;
       myModelViewer.style.height = `${box.height}px`;
 
-      myModelViewer.setAttribute('camera-orbit', `${0}deg ${90}deg`);
+      // myModelViewer.setAttribute('camera-orbit', `${0}deg ${90}deg`);
       // Update model-viewer rotation
-      // myModelViewer.setAttribute('camera-orbit', `${yaw}deg ${pitch}deg`);
+      myModelViewer.setAttribute('camera-orbit', `${yaw}deg ${pitch}deg`);
     } else {
       myModelViewer.style.display = 'none';
     }
-  }, 100);
+  }, 10);
 });
